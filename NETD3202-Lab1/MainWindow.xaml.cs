@@ -109,7 +109,7 @@ namespace NETD3202_Lab1
                 {
                     if (search == projectList[i].ProjectName)
                     {
-                        SecondWindow secondWindow = new SecondWindow(projectList[i], projectList);
+                        SecondWindow secondWindow = new SecondWindow(projectList[i], projectList, sender);
 
                         secondWindow.Show();
                     }

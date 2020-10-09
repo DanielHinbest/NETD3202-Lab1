@@ -23,12 +23,15 @@ namespace NETD3202_Lab1
         Program program = new Program();
         ////Note: do the same thing for the list.
         public List<Program> projectList = new List<Program>();
+        public string projectName;
+        public object sender;
         string output;
-        public SecondWindow(Program program, List<Program> projectList)
+        public SecondWindow(Program program, List<Program> projectList, object sender)
         {
             ////Note: do the same thing to the list! 
             this.program = program;
             this.projectList = projectList;
+            this.sender = sender;
 
             InitializeComponent();
 
@@ -47,30 +50,44 @@ namespace NETD3202_Lab1
 
         private void btnChangeProject_Click(object sender, RoutedEventArgs e)
         {
-            //Checks if any of the input fields are empty
-            if (txtProjectName.Text != string.Empty || txtProjectBudget.Text != string.Empty || txtMoneySpent.Text != string.Empty || txtHoursRemaining.Text != string.Empty || txtProjectStatus.Text != string.Empty)
+            
+            for (int i = 0; i < projectList.Count; i++)
             {
-                //Checks if the numeric input is valid
-                if (ValidateDouble(txtProjectBudget) && ValidateDouble(txtMoneySpent) && ValidateInteger(txtHoursRemaining))
-                {
-                    //Checks if the range is valid
-                    if (Convert.ToDouble(txtProjectBudget.Text) >= 0 || Convert.ToDouble(txtMoneySpent.Text) > 0 || Convert.ToInt32(txtHoursRemaining.Text) > 0)
-                    {
-                        //Adds a program object to the project list
-                        projectList.Add(new Program(txtProjectName.Text, double.Parse(txtProjectBudget.Text), double.Parse(txtMoneySpent.Text), int.Parse(txtHoursRemaining.Text), txtProjectStatus.Text));
 
-                        //Adds the project to the list box
-                        for (int i = 0; i < projectList.Count; i++)
+                //Checks if any of the input fields are empty
+                if (txtProjectName.Text != string.Empty || txtProjectBudget.Text != string.Empty || txtMoneySpent.Text != string.Empty || txtHoursRemaining.Text != string.Empty || txtProjectStatus.Text != string.Empty)
+                {
+                    //Checks if the numeric input is valid
+                    if (ValidateDouble(txtProjectBudget) && ValidateDouble(txtMoneySpent) && ValidateInteger(txtHoursRemaining))
+                    {
+                        //Checks if the range is valid
+                        if (Convert.ToDouble(txtProjectBudget.Text) >= 0 || Convert.ToDouble(txtMoneySpent.Text) > 0 || Convert.ToInt32(txtHoursRemaining.Text) > 0)
                         {
-                            mainWindow.lstProjects.SelectedItem = program.ProjectName;
-                            mainWindow.lstProjects.Items.Add(projectList[i].ProjectName);
+                            if (projectList[i].ProjectName == projectName)
+                            {
+                                projectList[i].ProjectName = txtProjectName.Text;
+                                projectList[i].ProjectBudget = double.Parse(txtProjectBudget.Text);
+                                projectList[i].MoneySpent = double.Parse(txtMoneySpent.Text);
+                                projectList[i].HoursRemaining = int.Parse(txtHoursRemaining.Text);
+                                projectList[i].ProjectStatus = txtProjectStatus.Text;
+                                CollectionViewSource.GetDefaultView(projectList).Refresh();
+                            }
+                            btnCloseWindow_Click(sender, e);
                         }
-                        btnCloseWindow_Click(sender, e);
+                        else
+                        {
+                            //Adds to the error output if there is a range error
+                            output += "The project budget, money spent, and hours remaining must be a positive number\n";
+                            if (output != string.Empty)
+                            {
+                                MessageBox.Show(output);
+                            }
+                        }
                     }
                     else
                     {
-                        //Adds to the error output if there is a range error
-                        output += "The project budget, money spent, and hours remaining must be a positive number\n";
+                        //Adds to the error output if there is non-numeric input
+                        output += "The project budget, money spent, and hours remaining must be a numeric value\n";
                         if (output != string.Empty)
                         {
                             MessageBox.Show(output);
@@ -79,23 +96,16 @@ namespace NETD3202_Lab1
                 }
                 else
                 {
-                    //Adds to the error output if there is non-numeric input
-                    output += "The project budget, money spent, and hours remaining must be a numeric value\n";
+                    //Adds to the error output if a field is empty
+                    output += "The fields cannot be empty";
                     if (output != string.Empty)
                     {
                         MessageBox.Show(output);
                     }
                 }
             }
-            else
-            {
-                //Adds to the error output if a field is empty
-                output += "The fields cannot be empty";
-                if (output != string.Empty)
-                {
-                    MessageBox.Show(output);
-                }
-            }
+
+
         }
 
         /// <summary>
