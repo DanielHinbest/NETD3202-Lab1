@@ -62,10 +62,10 @@ namespace NETD3202_Lab1
                         //Adds the project to the list box
                         for (int i = 0; i < projectList.Count; i++)
                         {
+                            mainWindow.lstProjects.SelectedItem = program.ProjectName;
                             mainWindow.lstProjects.Items.Add(projectList[i].ProjectName);
                         }
-
-                        this.Close();
+                        btnCloseWindow_Click(sender, e);
                     }
                     else
                     {

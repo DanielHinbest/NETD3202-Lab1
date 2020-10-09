@@ -135,7 +135,8 @@ namespace NETD3202_Lab1
         /// <param name="e"></param>
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            // Changed to this because this.Close() only closes the current window, and will ensure the program completely closes
+            System.Windows.Application.Current.Shutdown();
         }
 
         /// <summary>
