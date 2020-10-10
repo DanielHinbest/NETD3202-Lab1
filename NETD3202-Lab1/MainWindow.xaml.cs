@@ -33,6 +33,7 @@ namespace NETD3202_Lab1
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
         /// <summary>

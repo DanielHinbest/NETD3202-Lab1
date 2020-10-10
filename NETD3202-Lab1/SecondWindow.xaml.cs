@@ -71,7 +71,7 @@ namespace NETD3202_Lab1
                                 projectList[i].HoursRemaining = int.Parse(txtHoursRemaining.Text);
                                 projectList[i].ProjectStatus = txtProjectStatus.Text;
                                 CollectionViewSource.GetDefaultView(projectList).Refresh();
-                            }
+                                }
                             btnCloseWindow_Click(sender, e);
                         }
                         else
