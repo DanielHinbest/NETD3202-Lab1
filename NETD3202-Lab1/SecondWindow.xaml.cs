@@ -24,22 +24,30 @@ namespace NETD3202_Lab1
         //Note:What you want to do here is the following:  declare a program and a list then set it equal to whatever you passed I showed you an example for the Program, complete it for the list! 
         Program program = new Program();
         ////Note: do the same thing for the list.
-        public List<Program> projectList = new List<Program>();
-        public string projectName;
-        public object sender;
-        public int selectedIndex;
-        string output;
+        public List<Program> projectList = new List<Program>();     //Project list
+        public object sender;                                       //Object to pass through an event handler                
+        public int selectedIndex;                                   //Variable to store the selected index
+        string output;                                              //Error output variable
+
+        /// <summary>
+        /// Parameterized constructor - generates a new instance of the SecondWindow with the project selected from the MainWindow, its list and its object
+        /// </summary>
+        /// <param name="selectedProject"></param>
+        /// <param name="projectList"></param>
+        /// <param name="sender"></param>
         public SecondWindow(int selectedProject, List<Program> projectList, object sender)
         {
-            ////Note: do the same thing to the list! 
+            //Sets the index, project list, and sender to the SecondWindow variable class
             this.selectedIndex = selectedProject;
             this.projectList = projectList;
             this.sender = sender;
 
             InitializeComponent();
+            
+            //Creates a program based on the elements of the selected item from the MainWindow
             Program editedProgram = projectList[selectedIndex];
 
-            //Note:now we can set the program object properties equal to the textboxes.
+            //Sets all the text boxes to the attributes of the editedProgram
             txtProjectName.Text = editedProgram.ProjectName;
             txtProjectBudget.Text = editedProgram.ProjectBudget.ToString();
             txtMoneySpent.Text = editedProgram.MoneySpent.ToString();
@@ -47,11 +55,21 @@ namespace NETD3202_Lab1
             txtProjectStatus.Text = editedProgram.ProjectStatus;
         }
 
+        /// <summary>
+        /// Closes the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCloseWindow_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Event handler for changing the attributes of the project selected from MainWindow and alters the project item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnChangeProject_Click(object sender, RoutedEventArgs e)
         {
             //Checks if any of the input fields are empty
@@ -63,6 +81,7 @@ namespace NETD3202_Lab1
                     //Checks if the range is valid
                     if (Convert.ToDouble(txtProjectBudget.Text) >= 0 || Convert.ToDouble(txtMoneySpent.Text) > 0 || Convert.ToInt32(txtHoursRemaining.Text) > 0)
                     {
+                        //Creates a program based on the information provided
                         projectList[selectedIndex] = new Program(txtProjectName.Text, Convert.ToInt32(txtProjectBudget.Text), Convert.ToInt32(txtMoneySpent.Text), Convert.ToInt32(txtHoursRemaining.Text), txtProjectStatus.Text);
                         CollectionViewSource.GetDefaultView(projectList).Refresh();
                         btnCloseWindow_Click(sender, e);
