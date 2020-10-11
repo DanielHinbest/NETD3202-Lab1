@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*  Daniel Hinbest
+ *  October 11, 2020
+ *  NETD 3202 - Communication Activity 1
+ *  A WPF Window class that updates the information that gets sent back into the MainWindow lstProjects object
+ */
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
