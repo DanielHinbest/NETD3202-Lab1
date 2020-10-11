@@ -6,6 +6,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,7 +34,6 @@ namespace NETD3202_Lab1
         public MainWindow()
         {
             InitializeComponent();
-            
         }
 
         /// <summary>
@@ -102,21 +102,9 @@ namespace NETD3202_Lab1
         /// <param name="e"></param>
         private void lstProjects_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (lstProjects.SelectedItem != null)
-            {
-                string search = lstProjects.SelectedItem.ToString();
+            SecondWindow secondWindow = new SecondWindow(lstProjects.SelectedIndex, projectList, sender);
 
-                for (int i = 0; i < projectList.Count; i++)
-                {
-                    if (search == projectList[i].ProjectName)
-                    {
-                        SecondWindow secondWindow = new SecondWindow(projectList[i], projectList, sender);
-
-                        secondWindow.Show();
-                    }
-                }
-            }
-
+            secondWindow.Show();
         }
 
         /// <summary>
@@ -159,7 +147,7 @@ namespace NETD3202_Lab1
                 return false;
             }
         }
-        
+
         /// <summary>
         /// Validation for the integer data type variables
         /// </summary>
