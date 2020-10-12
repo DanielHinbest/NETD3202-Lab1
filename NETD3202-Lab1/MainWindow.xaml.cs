@@ -96,7 +96,7 @@ namespace NETD3202_Lab1
         }
 
         /// <summary>
-        /// Will handle the second window in the Communication Activity
+        /// Handles the second window in the Communication Activity
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
