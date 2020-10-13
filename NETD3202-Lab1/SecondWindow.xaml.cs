@@ -30,6 +30,7 @@ namespace NETD3202_Lab1
         Program program = new Program();
         ////Note: do the same thing for the list.
         public List<Program> projectList = new List<Program>();     //Project list
+        MainWindow mainwindow = Application.Current.Windows[0] as MainWindow;
         public object sender;                                       //Object to pass through an event handler                
         public int selectedIndex;                                   //Variable to store the selected index
         string output;                                              //Error output variable
@@ -58,7 +59,22 @@ namespace NETD3202_Lab1
             txtMoneySpent.Text = editedProgram.MoneySpent.ToString();
             txtHoursRemaining.Text = editedProgram.HoursRemaining.ToString();
             txtProjectStatus.Text = editedProgram.ProjectStatus;
+
+            //NOTE: you never actually update the listbox, you only update the list! 
+            //What you want to do here, is clear your listbox, and add all the project names again from your list.
+            //use a for loop to iterate through your list box.
+            //you can access the listbox in your mainwindow by using the following line of code:
+
+            //input the aforementioned piece of code right were you are declaring the projectlist at the top of this code file.
+            //then you can use the following piece of code to actually clear the list:
+            mainwindow.lstProjects.Items.Clear();
+            //then use a for loop to input the project names from the list again into the listbox in Mainwindow and your listbox will be updated! 
+            for (int i = 0; i < projectList.Count; i++)
+            {
+                mainwindow.lstProjects.Items.Add(projectList);
+            }
         }
+
 
         /// <summary>
         /// Closes the window
